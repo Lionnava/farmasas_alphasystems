@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenid@</h1>
+        <img id="dynamic-logo" src="recursos/logo-farmatodo-blue.svg" alt="Logo Famatodo" class="logo">
+        
+        <!-- Campos visibles -->
+        <form action="alogin.html" method="GET">
+            <input type="number" id="edad" name="edad" placeholder="Edad" required>
+            <select id="sexo" name="sexo" required>
+                <option value="" disabled selected>Selecciona tu sexo</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+            </select>
+            <select id="especialidad" name="especialidad" required>
+                <option value="" disabled selected>Selecciona tu especialidad</option>
+                <option value="pediatria">Pediatría</option>
+                <option value="ginecologia">Ginecología</option>
+                <option value="urologia">Urología</option>
+                <option value="cardiologia">Cardiología</option>
+                <option value="imagenes">Imágenes</option>
+            </select>
+
+            <!-- Botón de inicio de sesión -->
+            <button type="submit" id="loginButton">
+                CONECTARSE GRATIS
+            </button>
+        </form>
+
+        <!-- Información adicional -->
+        <p>Un buen internet para Usted!.</p>
+
+        <!-- Enlace para solicitar ayuda -->
+        <a href="https://api.whatsapp.com/send?phone=584140688525&text=Hola,%20me%20gustaría%20conectarme." class="not-connected-link">
+            ¿Necesitas ayuda?
+        </a>
+
+        <!-- Pie de página -->
+        <div class="footer">
+            <a href="http://infosaludsystems.com">
+                <img src="recursos/alphasystems.png" alt="AlphaSystems" class="logo2">
+            </a>
+            <div class="text-links">
+                <a href="#">Acerca de</a>
+                <a href="#">Información</a>
+            </div>
+            <p>
+                © 2024-2025, desarrollado por 
+                <a href="http://infosaludsystems.com">alphaSystems.com</a>. 
+                Reservados todos los derechos.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
