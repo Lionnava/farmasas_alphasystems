@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cierre de sesión</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        // Forzar el cierre de sesión en el hotspot
+        function logout() {
+            fetch('$(link-logout)?erase-cookie=on', { method: 'POST' })
+                .then(() => {
+                    window.location.href = 'login.html';
+                })
+                .catch(error => {
+                    console.error('Error al cerrar sesión:', error);
+                    alert('Hubo un error al cerrar sesión. Por favor, intenta de nuevo.');
+                });
+        }
+        window.onload = logout;
+    </script>
+</head>
+<body>
+    <div class="container">
+	<img id="dynamic-logo" src="recursos/logo-farmatodo-blue.svg" alt="Logo Famatodo" class="logo">
+        <h1>Sesión Finalizada</h1>
+        <p>Gracias por usar nuestro servicio.</p>
+        <p>Bytes enviados: $(bytes-out)</p>
+        <p>Bytes recibidos: $(bytes-in)</p>
+        <a href="$(link-login)">Iniciar Sesión</a>
+    </div>
+</body>
+</html>
