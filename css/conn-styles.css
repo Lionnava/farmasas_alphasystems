@@ -1,0 +1,76 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    color: #0a56a8;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilos específicos para el carrusel */
+.carousel-container {
+    width: 100%; /* El ancho del contenedor será igual al ancho del padre */
+    height: 200px; /* Altura fija para el carrusel */
+    overflow: hidden; /* Oculta cualquier contenido que se desborde */
+    margin-bottom: 1rem;
+    position: relative; /* Necesario para posicionar elementos internos */
+}
+
+.carousel-container img {
+    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+    height: 100%; /* La imagen ocupa toda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin deformarla */
+    position: absolute; /* Posicionamiento absoluto para controlar mejor la imagen */
+    top: 0;
+    left: 0;
+}
+.carousel-image {
+    transition: opacity 0.5s ease-in-out;
+}
+.progress-bar-fill {
+    width: 0;
+    height: 10px;
+    background-color: #4caf50;
+    animation: progress 3s linear infinite;
+}
+
+@keyframes progress {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+.logo {
+    width: 100%;
+    max-width: 549px;
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
