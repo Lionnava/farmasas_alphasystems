@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/md5.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <!-- Formulario oculto para autenticación CHAP -->
+
+    <form id="chapForm" name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username" value="guest" />
+        <input type="hidden" name="password" value="guest" />
+        <input type="hidden" name="dst" value="google-auth.html" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+
+
+    <div class="container">
+        <h1>Iniciar Sesión</h1>
+        <img id="dynamic-logo" src="recursos/farmacia_saas.png" alt="Logo Farmacia" class="logo">
+
+        <!-- Formulario principal -->
+        <form id="loginForm" onsubmit="return handleLogin(event);">
+            <!-- Campos visibles -->
+            <div class="form-group">
+                <input type="number" id="edad" name="edad" placeholder="Ingresa tu edad" required>
+            </div>
+
+            <div class="form-group">
+                <select id="sexo" name="sexo" required>
+                    <option value="" disabled selected>Selecciona tu sexo</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select id="especialidad" name="especialidad" required>
+                    <option value="" disabled selected>Selecciona tu especialidad</option>
+                    <option value="pediatria">Pediatría</option>
+                    <option value="ginecologia">Ginecología</option>
+                    <option value="urologia">Urología</option>
+                    <option value="cardiologia">Cardiología</option>
+                    <option value="imagenes">Imágenes</option>
+                </select>
+            </div>
+
+            <!-- Botón de Google -->
+            <div id="google-login-container" class="google-login-container"></div>
+
+            <!-- Botón de inicio de sesión -->
+            <button type="submit" id="loginButton" class="btn-primary">CONECTARSE GRATIS</button>
+        </form>
+
+        <!-- Información adicional -->
+        <p class="info-text">Nota: Completa todos los Campos.</p>
+           <img src="recursos/alphasystems.png" alt="AlphaSystems" class="logo2">
+        <!-- Enlace para solicitar ayuda -->
+        <a href="https://api.whatsapp.com/send?phone=584140688525&text=Hola,%20me%20gustaría%20conectarme." class="help-link">
+			¿Necesitas ayuda?
+        </a>
+
+    </div>
+    <script>
+        // Función para manejar el envío del formulario
+        function handleLogin(event) {
+            event.preventDefault(); // Evitar el envío automático del formulario
+
+            // Guardar datos del formulario en localStorage
+            const formData = {
+                edad: document.getElementById('edad').value,
+                sexo: document.getElementById('sexo').value,
+                especialidad: document.getElementById('especialidad').value
+            };
+            localStorage.setItem('formData', JSON.stringify(formData));
+
+            // Iniciar el proceso de autenticación con Google
+            initGoogleAuth();
+        }
+
+        // Inicializar Google Sign-In
+       function initGoogleAuth() {
+    google.accounts.id.initialize({
+        client_id: '274704104041-s6jf3biqfr2ddkt68bglt5lqs3bfi73f.apps.googleusercontent.com',
+        callback: handleCredentialResponse,
+        scope: 'profile email',
+        prompt: 'select_account', // O 'consent' si es necesario
+        logout_hint: true // Forzar cierre de sesión activa
+    });
+
+    google.accounts.id.renderButton(document.getElementById('google-login-container'), {
+        theme: 'outline',
+        size: 'large'
+    });
+
+    // Mostrar el botón de Google después de inicializarlo
+    document.getElementById('google-login-container').style.display = 'block';
+}
+        // Manejar la respuesta de Google
+        function handleCredentialResponse(response) {
+            const idToken = response.credential;
+
+            // Enviar el token de Google al servidor
+            fetch('https://infosaludsystems.com/hotspot/save_data.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_token: idToken })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                // Enviar el formulario de MikroTik para conceder acceso a Internet
+                document.getElementById('chapForm').submit();
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos:', error);
+                alert('Ocurrió un error al autenticar con Google.');
+            });
+        }
+    </script>
+</body>
+</html>
