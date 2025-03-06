@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <!-- Enlace a CSS externo -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <h1>Iniciar Sesión</h1>
+        
+        <!-- Logo dinámico -->
+        <img id="dynamic-logo" src="recursos/farmacia_saas.png" alt="Logo Farmacia" class="logo">
+
+        <!-- Formulario principal -->
+        <form id="loginForm" onsubmit="return handleLogin(event);">
+            <!-- Campo de edad -->
+            <div class="form-group">
+                <input type="number" id="edad" name="edad" placeholder="Ingresa tu edad" required min="1" max="120">
+                <small class="error-message" id="edad-error"></small>
+            </div>
+
+            <!-- Campo de sexo -->
+            <div class="form-group">
+                <select id="sexo" name="sexo" required>
+                    <option value="" disabled selected>Selecciona tu sexo</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <small class="error-message" id="sexo-error"></small>
+            </div>
+
+            <!-- Campo de especialidad -->
+            <div class="form-group">
+                <select id="especialidad" name="especialidad" required>
+                    <option value="" disabled selected>Selecciona tu especialidad</option>
+                    <option value="pediatria">Pediatría</option>
+                    <option value="ginecologia">Ginecología</option>
+                    <option value="urologia">Urología</option>
+                    <option value="cardiologia">Cardiología</option>
+                    <option value="imagenes">Imágenes</option>
+                </select>
+                <small class="error-message" id="especialidad-error"></small>
+            </div>
+
+            <!-- Botón de inicio de sesión -->
+            <button type="submit" id="loginButton" class="btn-primary">CONECTARSE GRATIS</button>
+        </form>
+
+        <!-- Información adicional -->
+        <p class="info-text">Nota: Completa todos los campos.</p>
+
+        <!-- Logo de AlphaSystems -->
+        <img src="recursos/alphasystems.png" alt="AlphaSystems" class="logo2">
+
+        <!-- Enlace para solicitar ayuda -->
+        <a href="https://api.whatsapp.com/send?phone=584140688525&text=Hola,%20me%20gustaría%20conectarme." class="help-link">
+            ¿Necesitas ayuda?
+        </a>
+    </div>
+
+    <!-- Script para manejar el envío del formulario -->
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // Previene el comportamiento predeterminado del formulario
+
+            // Limpiar mensajes de error previos
+            clearErrorMessages();
+
+            // Obtener los valores del formulario
+            const edad = document.getElementById('edad').value.trim();
+            const sexo = document.getElementById('sexo').value;
+            const especialidad = document.getElementById('especialidad').value;
+
+            // Validar campos
+            let isValid = true;
+
+            if (!edad || edad < 1 || edad > 120) {
+                showError('edad-error', 'Por favor, ingresa una edad válida entre 1 y 120.');
+                isValid = false;
+            }
+
+            if (!sexo) {
+                showError('sexo-error', 'Por favor, selecciona tu sexo.');
+                isValid = false;
+            }
+
+            if (!especialidad) {
+                showError('especialidad-error', 'Por favor, selecciona tu especialidad.');
+                isValid = false;
+            }
+
+            // Si hay errores, detener el proceso
+            if (!isValid) {
+                return false;
+            }
+
+            // Guardar datos en localStorage (opcional)
+            localStorage.setItem('userData', JSON.stringify({ edad, sexo, especialidad }));
+
+            // Redirigir al usuario a alogin.html
+            window.location.href = 'alogin.html';
+
+            return true;
+        }
+
+        // Función para mostrar mensajes de error
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+        }
+
+        // Función para limpiar mensajes de error
+        function clearErrorMessages() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach((element) => {
+                element.textContent = '';
+            });
+        }
+    </script>
+</body>
+</html>
