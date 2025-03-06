@@ -4,12 +4,7 @@ const images = [
     "recursos/imagen2.jpg",
     "recursos/imagen3.jpg",
     "recursos/imagen4.jpg",
-    "recursos/imagen5.jpg",
-    "recursos/imagen6.jpg",
-    "recursos/imagen7.jpg",
-    "recursos/imagen8.jpg",
-    "recursos/imagen9.jpg",
-    "recursos/imagen10.jpg"
+    "recursos/imagen5.jpg"
 ];
 
 // Función para mezclar el array de imágenes aleatoriamente
